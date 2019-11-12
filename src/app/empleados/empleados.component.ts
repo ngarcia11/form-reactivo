@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup,  Validators } from '@angular/forms';
 import { Empleadoss } from '../empleadoss';
 import { Empleado } from '../empleado';
+import { DataConService } from '../data-con.service';
 @Component({
   selector: 'app-empleados',
   templateUrl: './empleados.component.html',
@@ -38,7 +39,7 @@ export class EmpleadosComponent implements OnInit {
      phone: 95257831
   };
 
-  constructor() { 
+  constructor(private dbData: DataConService) { 
     this.EmpleadoForm = this.createFormGroup();
   }
   ngOnInit() {
@@ -47,8 +48,10 @@ export class EmpleadosComponent implements OnInit {
   onResetForm() {
     this.EmpleadoForm.reset();
   }
-  onSaveForm() {
+  onSaveForm(EmpleadoForm : Empleadoss) {
       if (this.EmpleadoForm.valid){
+        this.dbData.saveMessage(this.EmpleadoForm.value)
+        this.dbData.saveMessage(this.empleados)
         console.log(this.empleados, this.EmpleadoForm.value);
         this.onResetForm();
       }
@@ -56,6 +59,11 @@ export class EmpleadosComponent implements OnInit {
         console.log("No valido");
       }
     }
-  
-
+    get id() { return this.EmpleadoForm.get('id'); }
+    get firstname() { return this.EmpleadoForm.get('firstname'); }
+    get lastname() { return this.EmpleadoForm.get('lastname'); }
+    get bloque() { return this.EmpleadoForm.get(' bloque'); }
+    get colonia() { return this.EmpleadoForm.get('colonia'); }
+    get age() { return this.EmpleadoForm.get('age'); }
+    get phone() { return this.EmpleadoForm.get('phone'); }
 }

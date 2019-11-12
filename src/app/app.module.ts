@@ -4,7 +4,10 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { EmpleadosComponent } from './empleados/empleados.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore'
+import { DataConService } from './data-con.service';
+import { environment } from 'src/environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
@@ -13,9 +16,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     BrowserModule, 
     FormsModule,
-   ReactiveFormsModule
+   ReactiveFormsModule,
+   AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule
   ],
-  providers: [],
+  providers: [DataConService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
